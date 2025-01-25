@@ -42,7 +42,7 @@
                 <span jhiTranslate="global.menu.entities.main">Entidades</span>
               </span>
             </a>
-            <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
+            <ul *ngIf="role === 'ROLE_ADMIN'" class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
               <li>
                 <a
                   class="dropdown-item"
