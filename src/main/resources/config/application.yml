@@ -23,7 +23,7 @@ spring:
   mail:
     mail:
     host: localhost
-    port: 1025
+    port: 587
     username: bibliotecagamanova@localhost
     password: password
     properties:
