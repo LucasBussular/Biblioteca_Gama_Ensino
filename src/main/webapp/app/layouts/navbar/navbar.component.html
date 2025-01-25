@@ -30,6 +30,7 @@
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
         @if (account() !== null) {
           <li
+            *jhiHasAnyAuthority="'ROLE_ADMIN'"
             ngbDropdown
             class="nav-item dropdown pointer"
             display="dynamic"
@@ -42,7 +43,7 @@
                 <span jhiTranslate="global.menu.entities.main">Entidades</span>
               </span>
             </a>
-            <ul *ngIf="role === 'ROLE_ADMIN'" class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
+            <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
               <li>
                 <a
                   class="dropdown-item"
