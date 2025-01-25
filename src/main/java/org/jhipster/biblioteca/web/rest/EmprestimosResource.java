@@ -167,8 +167,10 @@ public class EmprestimosResource {
      *
      * @param id the id of the emprestimos to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
+     *
      */
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteEmprestimos(@PathVariable("id") Long id) {
         LOG.debug("REST request to delete Emprestimos : {}", id);
         emprestimosService.delete(id);
