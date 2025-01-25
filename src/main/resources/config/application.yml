@@ -21,16 +21,16 @@ spring:
     activate:
       on-profile: '!api-docs'
   mail:
-    host: smtp.gmail.com # ou o host do seu provedor de e-mail
-    port: 587 # geralmente 587 para TLS, 465 para SSL
-    username: seu-email@gmail.com
-    password: sua-senha
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
+    host: smtp.mail.localhost.com
+    port: 587
+    username: bibliotecagamanova@localhost
+    password: my_smtp_password
+    protocol: smtp
+    tls: true
+  properties.mail.smtp:
+    auth: true
+    starttls.enable: true
+    ssl.trust: smtp.mail.localhost.com
 springdoc:
   api-docs:
     enabled: false
