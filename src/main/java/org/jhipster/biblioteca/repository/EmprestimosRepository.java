@@ -9,4 +9,7 @@ import org.springframework.stereotype.Repository;
  */
 @SuppressWarnings("unused")
 @Repository
-public interface EmprestimosRepository extends JpaRepository<Emprestimos, Long> {}
+public interface EmprestimosRepository extends JpaRepository<Emprestimos, Long> {
+    @Query("select e from Emprestimos e where e.cliente.email = ?#{autehntication.email}")
+    List<Emprestimos> findByUserIsCurrentUser();
+}
