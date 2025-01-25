@@ -50,6 +50,13 @@ public class CacheConfiguration {
             createCache(cm, org.jhipster.biblioteca.domain.User.class.getName());
             createCache(cm, org.jhipster.biblioteca.domain.Authority.class.getName());
             createCache(cm, org.jhipster.biblioteca.domain.User.class.getName() + ".authorities");
+            createCache(cm, org.jhipster.biblioteca.domain.Cliente.class.getName());
+            createCache(cm, org.jhipster.biblioteca.domain.Cliente.class.getName() + ".emprestimos");
+            createCache(cm, org.jhipster.biblioteca.domain.Emprestimos.class.getName());
+            createCache(cm, org.jhipster.biblioteca.domain.Genero.class.getName());
+            createCache(cm, org.jhipster.biblioteca.domain.Genero.class.getName() + ".livros");
+            createCache(cm, org.jhipster.biblioteca.domain.Livro.class.getName());
+            createCache(cm, org.jhipster.biblioteca.domain.Livro.class.getName() + ".emprestimos");
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,0 +1,7 @@
+export enum Status {
+  EMPRESTADO = 'EMPRESTADO',
+
+  ATRASADO = 'ATRASADO',
+
+  DEVOLVIDO = 'DEVOLVIDO',
+}

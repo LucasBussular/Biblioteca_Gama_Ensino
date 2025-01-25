@@ -1,0 +1,147 @@
+<div>
+  <h2 id="page-heading" data-cy="EmprestimosHeading">
+    <span jhiTranslate="bibliotecagamanovaApp.emprestimos.home.title">Emprestimos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="bibliotecagamanovaApp.emprestimos.home.refreshListLabel">Atualizar lista</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-emprestimos"
+        [routerLink]="['/emprestimos/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="bibliotecagamanovaApp.emprestimos.home.createLabel">Criar novo Emprestimos</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (emprestimos().length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="bibliotecagamanovaApp.emprestimos.home.notFound">Nenhum Emprestimos encontrado</span>
+    </div>
+  } @else {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [(sortState)]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span jhiTranslate="global.field.id">Código</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dataEmprestimo">
+              <div class="d-flex">
+                <span jhiTranslate="bibliotecagamanovaApp.emprestimos.dataEmprestimo">Data Emprestimo</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="dataDevolucao">
+              <div class="d-flex">
+                <span jhiTranslate="bibliotecagamanovaApp.emprestimos.dataDevolucao">Data Devolucao</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="status">
+              <div class="d-flex">
+                <span jhiTranslate="bibliotecagamanovaApp.emprestimos.status">Status</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="livro.id">
+              <div class="d-flex">
+                <span jhiTranslate="bibliotecagamanovaApp.emprestimos.livro">Livro</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="cliente.id">
+              <div class="d-flex">
+                <span jhiTranslate="bibliotecagamanovaApp.emprestimos.cliente">Cliente</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (emprestimos of emprestimos(); track trackId(emprestimos)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/emprestimos', emprestimos.id, 'view']">{{ emprestimos.id }}</a>
+              </td>
+              <td>{{ emprestimos.dataEmprestimo | formatMediumDatetime }}</td>
+              <td>{{ emprestimos.dataDevolucao | formatMediumDatetime }}</td>
+              <td [jhiTranslate]="'bibliotecagamanovaApp.Status.' + (emprestimos.status ?? 'null')">
+                {{ { null: '', EMPRESTADO: 'EMPRESTADO', ATRASADO: 'ATRASADO', DEVOLVIDO: 'DEVOLVIDO' }[emprestimos.status ?? 'null'] }}
+              </td>
+              <td>
+                @if (emprestimos.livro) {
+                  <div>
+                    <a [routerLink]="['/livro', emprestimos.livro.id, 'view']">{{ emprestimos.livro.id }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                @if (emprestimos.cliente) {
+                  <div>
+                    <a [routerLink]="['/cliente', emprestimos.cliente.id, 'view']">{{ emprestimos.cliente.id }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/emprestimos', emprestimos.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Visualizar</span>
+                  </a>
+
+                  <a [routerLink]="['/emprestimos', emprestimos.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editar</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(emprestimos)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+  @if (emprestimos().length > 0) {
+    <div>
+      <div class="d-flex justify-content-center">
+        <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <ngb-pagination
+          [collectionSize]="totalItems"
+          [page]="page"
+          [pageSize]="itemsPerPage"
+          [maxSize]="5"
+          [rotate]="true"
+          [boundaryLinks]="true"
+          (pageChange)="navigateToPage($event)"
+        ></ngb-pagination>
+      </div>
+    </div>
+  }
+</div>

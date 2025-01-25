@@ -1,0 +1,28 @@
+{
+  "bibliotecagamanovaApp": {
+    "emprestimos": {
+      "home": {
+        "title": "Emprestimos",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Emprestimos",
+        "createOrEditLabel": "Create or edit a Emprestimos",
+        "notFound": "No Emprestimos found"
+      },
+      "created": "A new Emprestimos is created with identifier {{ param }}",
+      "updated": "A Emprestimos is updated with identifier {{ param }}",
+      "deleted": "A Emprestimos is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Emprestimos {{ id }}?"
+      },
+      "detail": {
+        "title": "Emprestimos"
+      },
+      "id": "ID",
+      "dataEmprestimo": "Data Emprestimo",
+      "dataDevolucao": "Data Devolucao",
+      "status": "Status",
+      "livro": "Livro",
+      "cliente": "Cliente"
+    }
+  }
+}

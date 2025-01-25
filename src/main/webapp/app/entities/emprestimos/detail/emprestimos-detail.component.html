@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (emprestimos(); as emprestimosRef) {
+      <div>
+        <h2 data-cy="emprestimosDetailsHeading"><span jhiTranslate="bibliotecagamanovaApp.emprestimos.detail.title">Emprestimos</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="global.field.id">Código</span></dt>
+          <dd>
+            <span>{{ emprestimosRef.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="bibliotecagamanovaApp.emprestimos.dataEmprestimo">Data Emprestimo</span></dt>
+          <dd>
+            <span>{{ emprestimosRef.dataEmprestimo | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="bibliotecagamanovaApp.emprestimos.dataDevolucao">Data Devolucao</span></dt>
+          <dd>
+            <span>{{ emprestimosRef.dataDevolucao | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="bibliotecagamanovaApp.emprestimos.status">Status</span></dt>
+          <dd>
+            <span [jhiTranslate]="'bibliotecagamanovaApp.Status.' + (emprestimosRef.status ?? 'null')">{{
+              { null: '', EMPRESTADO: 'EMPRESTADO', ATRASADO: 'ATRASADO', DEVOLVIDO: 'DEVOLVIDO' }[emprestimosRef.status ?? 'null']
+            }}</span>
+          </dd>
+          <dt><span jhiTranslate="bibliotecagamanovaApp.emprestimos.livro">Livro</span></dt>
+          <dd>
+            @if (emprestimos()!.livro) {
+              <div>
+                <a [routerLink]="['/livro', emprestimos()!.livro?.id, 'view']">{{ emprestimosRef.livro?.id }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="bibliotecagamanovaApp.emprestimos.cliente">Cliente</span></dt>
+          <dd>
+            @if (emprestimos()!.cliente) {
+              <div>
+                <a [routerLink]="['/cliente', emprestimos()!.cliente?.id, 'view']">{{ emprestimosRef.cliente?.id }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Voltar</span>
+        </button>
+
+        <button type="button" [routerLink]="['/emprestimos', emprestimosRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editar</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

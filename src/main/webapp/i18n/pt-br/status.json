@@ -1,0 +1,10 @@
+{
+  "bibliotecagamanovaApp": {
+    "Status": {
+      "null": "",
+      "EMPRESTADO": "EMPRESTADO",
+      "ATRASADO": "ATRASADO",
+      "DEVOLVIDO": "DEVOLVIDO"
+    }
+  }
+}

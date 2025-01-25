@@ -1,0 +1,133 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-emprestimos-heading"
+        data-cy="EmprestimosCreateUpdateHeading"
+        jhiTranslate="bibliotecagamanovaApp.emprestimos.home.createOrEditLabel"
+      >
+        Criar ou editar Emprestimos
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="bibliotecagamanovaApp.emprestimos.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let dataEmprestimoRef = editForm.get('dataEmprestimo')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_dataEmprestimo" jhiTranslate="bibliotecagamanovaApp.emprestimos.dataEmprestimo"
+            >Data Emprestimo</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_dataEmprestimo"
+              data-cy="dataEmprestimo"
+              type="datetime-local"
+              class="form-control"
+              name="dataEmprestimo"
+              formControlName="dataEmprestimo"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+          @if (dataEmprestimoRef.invalid && (dataEmprestimoRef.dirty || dataEmprestimoRef.touched)) {
+            <div>
+              @if (editForm.get('dataEmprestimo')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('dataEmprestimo')?.errors?.datetimelocal"
+                jhiTranslate="entity.validation.datetimelocal"
+                >Este campo é do tipo data/hora.</small
+              >
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_dataDevolucao" jhiTranslate="bibliotecagamanovaApp.emprestimos.dataDevolucao"
+            >Data Devolucao</label
+          >
+          <div class="d-flex">
+            <input
+              id="field_dataDevolucao"
+              data-cy="dataDevolucao"
+              type="datetime-local"
+              class="form-control"
+              name="dataDevolucao"
+              formControlName="dataDevolucao"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        @let statusRef = editForm.get('status')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_status" jhiTranslate="bibliotecagamanovaApp.emprestimos.status">Status</label>
+          <select class="form-control" name="status" formControlName="status" id="field_status" data-cy="status">
+            <option [ngValue]="null">{{ 'bibliotecagamanovaApp.Status.null' | translate }}</option>
+            @for (status of statusValues; track $index) {
+              <option [value]="status">{{ 'bibliotecagamanovaApp.Status.' + status | translate }}</option>
+            }
+          </select>
+          @if (statusRef.invalid && (statusRef.dirty || statusRef.touched)) {
+            <div>
+              @if (editForm.get('status')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_livro" jhiTranslate="bibliotecagamanovaApp.emprestimos.livro">Livro</label>
+          <select class="form-control" id="field_livro" data-cy="livro" name="livro" formControlName="livro" [compareWith]="compareLivro">
+            <option [ngValue]="null"></option>
+            @for (livroOption of livrosSharedCollection; track $index) {
+              <option [ngValue]="livroOption">{{ livroOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_cliente" jhiTranslate="bibliotecagamanovaApp.emprestimos.cliente">Cliente</label>
+          <select
+            class="form-control"
+            id="field_cliente"
+            data-cy="cliente"
+            name="cliente"
+            formControlName="cliente"
+            [compareWith]="compareCliente"
+          >
+            <option [ngValue]="null"></option>
+            @for (clienteOption of clientesSharedCollection; track $index) {
+              <option [ngValue]="clienteOption">{{ clienteOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,120 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-livro-heading" data-cy="LivroCreateUpdateHeading" jhiTranslate="bibliotecagamanovaApp.livro.home.createOrEditLabel">
+        Criar ou editar Livro
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id" jhiTranslate="bibliotecagamanovaApp.livro.id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let tituloRef = editForm.get('titulo')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_titulo" jhiTranslate="bibliotecagamanovaApp.livro.titulo">Titulo</label>
+          <input type="text" class="form-control" name="titulo" id="field_titulo" data-cy="titulo" formControlName="titulo" />
+          @if (tituloRef.invalid && (tituloRef.dirty || tituloRef.touched)) {
+            <div>
+              @if (editForm.get('titulo')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let autorRef = editForm.get('autor')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_autor" jhiTranslate="bibliotecagamanovaApp.livro.autor">Autor</label>
+          <input type="text" class="form-control" name="autor" id="field_autor" data-cy="autor" formControlName="autor" />
+          @if (autorRef.invalid && (autorRef.dirty || autorRef.touched)) {
+            <div>
+              @if (editForm.get('autor')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        @let anoPublicacaoRef = editForm.get('anoPublicacao')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_anoPublicacao" jhiTranslate="bibliotecagamanovaApp.livro.anoPublicacao"
+            >Ano Publicacao</label
+          >
+          <input
+            type="number"
+            class="form-control"
+            name="anoPublicacao"
+            id="field_anoPublicacao"
+            data-cy="anoPublicacao"
+            formControlName="anoPublicacao"
+          />
+          @if (anoPublicacaoRef.invalid && (anoPublicacaoRef.dirty || anoPublicacaoRef.touched)) {
+            <div>
+              @if (editForm.get('anoPublicacao')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+              <small
+                class="form-text text-danger"
+                [hidden]="!editForm.get('anoPublicacao')?.errors?.number"
+                jhiTranslate="entity.validation.number"
+                >Este campo é do tipo numérico.</small
+              >
+            </div>
+          }
+        </div>
+
+        @let isbnRef = editForm.get('isbn')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_isbn" jhiTranslate="bibliotecagamanovaApp.livro.isbn">Isbn</label>
+          <input type="text" class="form-control" name="isbn" id="field_isbn" data-cy="isbn" formControlName="isbn" />
+          @if (isbnRef.invalid && (isbnRef.dirty || isbnRef.touched)) {
+            <div>
+              @if (editForm.get('isbn')?.errors?.required) {
+                <small class="form-text text-danger" jhiTranslate="entity.validation.required">O campo é obrigatório.</small>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_genero" jhiTranslate="bibliotecagamanovaApp.livro.genero">Genero</label>
+          <select
+            class="form-control"
+            id="field_genero"
+            data-cy="genero"
+            name="genero"
+            formControlName="genero"
+            [compareWith]="compareGenero"
+          >
+            <option [ngValue]="null"></option>
+            @for (generoOption of generosSharedCollection; track $index) {
+              <option [ngValue]="generoOption">{{ generoOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancelar</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Salvar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
