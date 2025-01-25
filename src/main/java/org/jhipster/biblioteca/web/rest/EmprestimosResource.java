@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 import org.jhipster.biblioteca.domain.Emprestimos;
 import org.jhipster.biblioteca.repository.EmprestimosRepository;
+import org.jhipster.biblioteca.security.AuthoritiesConstants;
 import org.jhipster.biblioteca.service.EmprestimosService;
 import org.jhipster.biblioteca.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
