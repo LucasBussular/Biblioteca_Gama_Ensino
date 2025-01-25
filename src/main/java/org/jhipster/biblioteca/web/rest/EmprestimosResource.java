@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import org.biblioteca.security.AuthoritiesConstants;
 import org.jhipster.biblioteca.domain.Emprestimos;
 import org.jhipster.biblioteca.repository.EmprestimosRepository;
 import org.jhipster.biblioteca.service.EmprestimosService;
@@ -24,7 +25,7 @@ import tech.jhipster.web.util.HeaderUtil;
 import tech.jhipster.web.util.PaginationUtil;
 import tech.jhipster.web.util.ResponseUtil;
 
-/**
+/*
  * REST controller for managing {@link org.jhipster.biblioteca.domain.Emprestimos}.
  */
 @RestController
