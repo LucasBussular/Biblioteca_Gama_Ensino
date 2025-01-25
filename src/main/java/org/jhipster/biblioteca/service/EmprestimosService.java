@@ -2,11 +2,7 @@ package org.jhipster.biblioteca.service;
 
 import java.util.Optional;
 import org.jhipster.biblioteca.domain.Emprestimos;
-import org.jhipster.biblioteca.domain.User;
 import org.jhipster.biblioteca.repository.EmprestimosRepository;
-import org.jhipster.biblioteca.repository.UserRepository;
-import org.jhipster.biblioteca.security.AuthoritiesConstants;
-import org.jhipster.biblioteca.security.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -24,11 +20,9 @@ public class EmprestimosService {
     private static final Logger LOG = LoggerFactory.getLogger(EmprestimosService.class);
 
     private final EmprestimosRepository emprestimosRepository;
-    private final UserRepository userRepository;
 
     public EmprestimosService(EmprestimosRepository emprestimosRepository) {
         this.emprestimosRepository = emprestimosRepository;
-        this.userRepository = userRepository;
     }
 
     /**
@@ -89,17 +83,7 @@ public class EmprestimosService {
     @Transactional(readOnly = true)
     public Page<Emprestimos> findAll(Pageable pageable) {
         LOG.debug("Request to get all Emprestimos");
-        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            // Se for admin, retorna todos os empréstimos
-            return emprestimosRepository.findAll(pageable);
-        } else {
-            // Se não for admin, filtra os empréstimos do usuário logado
-            String login = SecurityUtils.getCurrentUserLogin().get(); // Obtém o login do usuário logado
-            User user = userRepository.findOneByLogin(login).get(); // Encontra o usuário pelo login
-
-            // Retorna apenas os empréstimos do usuário logado
-            return emprestimosRepository.findByCliente(user, pageable);
-        }
+        return emprestimosRepository.findAll(pageable);
     }
 
     /**
