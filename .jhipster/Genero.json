@@ -1,0 +1,23 @@
+{
+  "annotations": {},
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "genero",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    }
+  ],
+  "name": "Genero",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "livro",
+      "otherEntityRelationshipName": "genero",
+      "relationshipName": "livro",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

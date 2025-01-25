@@ -1,0 +1,45 @@
+{
+  "annotations": {},
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "titulo",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "autor",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "anoPublicacao",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "isbn",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    }
+  ],
+  "name": "Livro",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "genero",
+      "otherEntityRelationshipName": "livro",
+      "relationshipName": "genero",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "emprestimos",
+      "otherEntityRelationshipName": "livro",
+      "relationshipName": "emprestimos",
+      "relationshipSide": "right",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

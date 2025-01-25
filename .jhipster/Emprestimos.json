@@ -1,0 +1,40 @@
+{
+  "annotations": {},
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "dataEmprestimo",
+      "fieldType": "Instant",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "dataDevolucao",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "status",
+      "fieldType": "Status",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "EMPRESTADO,ATRASADO,DEVOLVIDO"
+    }
+  ],
+  "name": "Emprestimos",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "livro",
+      "otherEntityRelationshipName": "emprestimos",
+      "relationshipName": "livro",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "cliente",
+      "otherEntityRelationshipName": "emprestimos",
+      "relationshipName": "cliente",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

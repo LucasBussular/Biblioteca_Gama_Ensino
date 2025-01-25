@@ -1,0 +1,32 @@
+{
+  "annotations": {},
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "nome",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "email",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "unique"]
+    },
+    {
+      "fieldName": "telefone",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Cliente",
+  "pagination": "pagination",
+  "relationships": [
+    {
+      "otherEntityName": "emprestimos",
+      "otherEntityRelationshipName": "cliente",
+      "relationshipName": "emprestimos",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-many"
+    }
+  ],
+  "service": "serviceClass"
+}

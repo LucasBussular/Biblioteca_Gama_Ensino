@@ -1,0 +1,46 @@
+entity Livro {
+  titulo String required,
+  autor String required,
+  anoPublicacao Integer required,
+  isbn String required unique
+}
+
+entity Cliente {
+  nome String required,
+  email String required unique,
+  telefone String
+}
+
+entity Emprestimos {
+  dataEmprestimo Instant required,
+  dataDevolucao Instant,
+  status Status required // Enum representando os valores do status
+}
+
+entity Genero {
+  genero String required unique // Exemplo: Fantasia, Romance, Técnico
+}
+
+// Enumerado para o campo "status" de Emprestimos
+enum Status {
+  EMPRESTADO,
+  ATRASADO,
+  DEVOLVIDO
+}
+
+// Relacionamentos
+relationship OneToMany {
+  Cliente to Emprestimos
+}
+
+relationship ManyToOne {
+  Emprestimos to Livro
+}
+
+relationship ManyToOne {
+  Livro to Genero // Cada livro está associado a uma categoria
+}
+
+// Serviços e Paginação
+paginate Livro, Cliente, Emprestimos, Genero with pagination
+service Livro, Cliente, Emprestimos, Genero with serviceClass
