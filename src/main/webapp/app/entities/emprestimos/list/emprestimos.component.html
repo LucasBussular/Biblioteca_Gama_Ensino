@@ -122,7 +122,7 @@
                     *ngIf="emprestimos.status === 'ATRASADO'"
                     type="button"
                     class="btn btn-warning btn-sm"
-                    (click)="alert('Email de notificação enviado com sucesso!')"
+                    (click)="window.alert('Email de notificação enviado com sucesso!')"
                     data-cy="entitySendEmailButton"
                   >
                     <fa-icon icon="envelope"></fa-icon>
