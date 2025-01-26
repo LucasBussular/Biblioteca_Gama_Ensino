@@ -1,7 +1,7 @@
 {
   "home": {
-    "title": "Bem vindo, Java Hipster!",
-    "subtitle": "Esta é a página principal",
+    "title": "Bem vindo à Biblioteca Gama Ensino!",
+    "subtitle": "Esta aplicação foi desenvolvida com o intuito de aprender um pouco mais sobre a ferramenta JHipster! É uma aplicação simples para o gerenciamento de uma biblioteca. Para desenvolver essa aplicação, desenvolvi o backend em PostgreSQL e o frontend em Angular.",
     "logged": {
       "message": "Você está logado como \"{{username}}\"."
     },
