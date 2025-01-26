@@ -78,12 +78,10 @@ export class EmprestimosComponent implements OnInit {
     this.handleNavigation(page, this.sortState());
   }
 
-  enviarEmail(emprestimo: IEmprestimos): void {
-    if (emprestimo && emprestimo.cliente) {
-      const clienteEmail = emprestimo.cliente.email;
-      const livroTitulo = emprestimo.livro?.titulo;
-      alert(`Enviando email para ${clienteEmail} sobre o livro "${livroTitulo}" que está atrasado.`);
-    }
+  enviarEmail(emprestimos: IEmprestimos): void {
+    const clienteEmail = emprestimos?.cliente?.email;
+    const livroTitulo = emprestimos?.livro?.titulo;
+    alert(`Enviando email para ${clienteEmail} sobre o livro "${livroTitulo}" que está atrasado.`);
   }
 
   protected fillComponentAttributeFromRoute(params: ParamMap, data: Data): void {
