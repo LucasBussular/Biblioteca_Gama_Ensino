@@ -78,12 +78,6 @@ export class EmprestimosComponent implements OnInit {
     this.handleNavigation(page, this.sortState());
   }
 
-  enviarEmail(emprestimos: IEmprestimos): void {
-    const clienteEmail = emprestimos?.cliente?.email;
-    const livroTitulo = emprestimos?.livro?.titulo;
-    alert(`Enviando email para ${clienteEmail} sobre o livro "${livroTitulo}" que está atrasado.`);
-  }
-
   protected fillComponentAttributeFromRoute(params: ParamMap, data: Data): void {
     const page = params.get(PAGE_HEADER);
     this.page = +(page ?? 1);
