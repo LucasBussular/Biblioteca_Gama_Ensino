@@ -125,4 +125,12 @@ export class EmprestimosComponent implements OnInit {
       });
     });
   }
+
+  enviarEmail(emprestimo: IEmprestimos): void {
+    if (emprestimo && emprestimo.cliente) {
+      const clienteEmail = emprestimo.cliente.email;
+      const livroTitulo = emprestimo.livro?.titulo;
+      alert(`Enviando email para ${clienteEmail} sobre o livro "${livroTitulo}" que está atrasado.`);
+    }
+  }
 }

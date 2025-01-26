@@ -117,6 +117,17 @@
                     <fa-icon icon="times"></fa-icon>
                     <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Excluir</span>
                   </button>
+
+                  <button
+                    *ngIf="emprestimos.status === 'ATRASADO'"
+                    type="button"
+                    class="btn btn-warning btn-sm"
+                    (click)="enviarEmail(emprestimos)"
+                    data-cy="entitySendEmailButton"
+                  >
+                    <fa-icon icon="envelope"></fa-icon>
+                    <span class="d-none d-md-inline">Enviar Email</span>
+                  </button>
                 </div>
               </td>
             </tr>
